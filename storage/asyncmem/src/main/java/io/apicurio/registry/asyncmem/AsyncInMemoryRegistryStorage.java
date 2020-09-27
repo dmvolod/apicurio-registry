@@ -98,7 +98,7 @@ public class AsyncInMemoryRegistryStorage extends SimpleMapRegistryStorage {
      * @see io.apicurio.registry.storage.impl.AbstractMapRegistryStorage#createArtifact(java.lang.String, io.apicurio.registry.types.ArtifactType, io.apicurio.registry.content.ContentHandle)
      */
     @Override
-    public CompletionStage<ArtifactMetaDataDto> createArtifact(String artifactId, ArtifactType artifactType,
+    public CompletionStage<ArtifactMetaDataDto> createArtifactWithEvent(String artifactId, ArtifactType artifactType,
             ContentHandle content) throws ArtifactAlreadyExistsException, RegistryStorageException {
         try {
             ArtifactMetaDataDto amdd = createOrUpdateArtifact(artifactId, artifactType, content, true, nextGlobalId());

@@ -342,7 +342,7 @@ public class StreamsRegistryStorage extends AbstractRegistryStorage {
     }
 
     @Override
-    public CompletionStage<ArtifactMetaDataDto> createArtifact(String artifactId, ArtifactType artifactType, ContentHandle content) throws ArtifactAlreadyExistsException, RegistryStorageException {
+    public CompletionStage<ArtifactMetaDataDto> createArtifactWithEvent(String artifactId, ArtifactType artifactType, ContentHandle content) throws ArtifactAlreadyExistsException, RegistryStorageException {
         Str.Data data = storageStore.get(artifactId);
         if (data != null) {
             if (data.getArtifactsCount() > 0) {

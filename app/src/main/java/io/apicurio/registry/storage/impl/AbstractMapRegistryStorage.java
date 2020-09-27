@@ -331,7 +331,7 @@ public abstract class AbstractMapRegistryStorage extends AbstractRegistryStorage
      * @see io.apicurio.registry.storage.RegistryStorage#createArtifact(java.lang.String, ArtifactType, ContentHandle)
      */
     @Override
-    public CompletionStage<ArtifactMetaDataDto> createArtifact(String artifactId, ArtifactType artifactType, ContentHandle content)
+    public CompletionStage<ArtifactMetaDataDto> createArtifactWithEvent(String artifactId, ArtifactType artifactType, ContentHandle content)
     throws ArtifactAlreadyExistsException, RegistryStorageException {
         try {
             ArtifactMetaDataDto amdd = createOrUpdateArtifact(artifactId, artifactType, content, true, nextGlobalId());

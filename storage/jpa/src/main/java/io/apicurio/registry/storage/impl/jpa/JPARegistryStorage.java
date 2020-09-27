@@ -333,7 +333,7 @@ public class JPARegistryStorage extends AbstractRegistryStorage {
 
     @Override
     @Transactional
-    public CompletionStage<ArtifactMetaDataDto> createArtifact(String artifactId, ArtifactType artifactType, ContentHandle content) throws ArtifactAlreadyExistsException, RegistryStorageException {
+    public CompletionStage<ArtifactMetaDataDto> createArtifactWithEvent(String artifactId, ArtifactType artifactType, ContentHandle content) throws ArtifactAlreadyExistsException, RegistryStorageException {
         requireNonNull(artifactId);
         requireNonNull(artifactType);
         requireNonNull(content);
