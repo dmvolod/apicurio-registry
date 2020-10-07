@@ -22,6 +22,7 @@ import io.apicurio.registry.types.ArtifactType;
 import io.apicurio.registry.types.RuleType;
 import io.apicurio.registry.utils.ConcurrentUtil;
 import io.vertx.mutiny.core.eventbus.EventBus;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
@@ -32,6 +33,9 @@ import java.util.concurrent.CompletionStage;
 public abstract class AbstractRegistryStorage implements RegistryStorage {
     @Inject
     EventBus bus;
+
+    @ConfigProperty(name = "registry.tracking.change.artifact.create.enable", defaultValue = "false")
+    boolean createArtifactEventTracking;
 
     // workaround for Quarkus issue #9887
 
@@ -52,8 +56,9 @@ public abstract class AbstractRegistryStorage implements RegistryStorage {
 
     public CompletionStage<ArtifactMetaDataDto> createArtifact(String artifactId, ArtifactType artifactType, ContentHandle content) throws ArtifactAlreadyExistsException, RegistryStorageException {
         return createArtifactWithEvent(artifactId, artifactType, content).whenComplete((res, th) -> {
-            System.out.println("atrifactId " + res.getId());
-            bus.publish("createArtifact", res.getId());
+            if (createArtifactEventTracking) {
+                bus.publish("createArtifact", res.getId());
+            }
         });
     }
 }
